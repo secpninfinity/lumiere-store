@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function Navbar({ cartCount = 0 }) {
   return (
     <nav className="nav">
-      <Link href="/" className="logo">✦ Lumière</Link>
+      <Link href="/" className="logo"><span className="logo-star">✦</span> Lumière</Link>
       <div className="nav-links">
         <Link href="/">หน้าแรก</Link>
         <Link href="/#shop">สินค้า</Link>

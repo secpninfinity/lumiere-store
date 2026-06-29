@@ -7,6 +7,34 @@ import Navbar from '@/components/Navbar';
 import Toast from '@/components/Toast';
 import { PRODUCTS, CATEGORIES, fmt } from '@/lib/products';
 
+const LOOKBOOK = [
+  {
+    title: 'Summer Satin',
+    label: 'เดรสออกงาน',
+    photo: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=900&q=80&auto=format&fit=crop',
+  },
+  {
+    title: 'Soft Blazer',
+    label: 'ลุคทำงาน',
+    photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=900&q=80&auto=format&fit=crop',
+  },
+  {
+    title: 'City Casual',
+    label: 'สตรีทสไตล์',
+    photo: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=80&auto=format&fit=crop',
+  },
+  {
+    title: 'Weekend Bloom',
+    label: 'เดรสลายดอก',
+    photo: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=900&q=80&auto=format&fit=crop',
+  },
+  {
+    title: 'Evening Detail',
+    label: 'เครื่องประดับ',
+    photo: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=900&q=80&auto=format&fit=crop',
+  },
+];
+
 export default function Home() {
   const [cart, setCart] = useState(0);
   const [activeCat, setActiveCat] = useState('all');
@@ -117,6 +145,32 @@ export default function Home() {
               </article>
             );
           })}
+        </div>
+      </section>
+
+      {/* LOOKBOOK */}
+      <section className="section lookbook-section" id="lookbook">
+        <div className="section-head">
+          <div className="section-title">Lookbook</div>
+          <div className="section-sub">แรงบันดาลใจจาก 5 ลุคที่หยิบไปแต่งต่อได้ทันที</div>
+        </div>
+
+        <div className="lookbook-grid">
+          {LOOKBOOK.map((item, index) => (
+            <article className={`lookbook-tile tile-${index + 1}`} key={item.title}>
+              <Image
+                src={item.photo}
+                alt={`${item.label} - ${item.title}`}
+                fill
+                sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                style={{ objectFit: 'cover' }}
+              />
+              <div className="lookbook-caption">
+                <span>{item.label}</span>
+                <strong>{item.title}</strong>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
