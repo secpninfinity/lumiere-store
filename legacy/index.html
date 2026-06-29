@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumière — ร้านเสื้อผ้าแฟชั่น</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+  <style>
+    :root {
+      --blue: #378add;
+      --blue-light: #b5d4f4;
+      --purple: #6b3fa0;
+      --purple-deep: #4a2d8c;
+      --purple-darker: #2e1a5c;
+      --pink: #c2559e;
+      --pink-light: #f7c6e8;
+      --pink-soft: #fbeaf0;
+      --text: #2a2435;
+      --text-muted: #8a8499;
+      --bg: #faf8fc;
+      --white: #ffffff;
+      --border: #ece8f2;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Kanit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== NAVBAR ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(74, 45, 140, 0.97);
+      backdrop-filter: blur(8px);
+      padding: 16px 6vw;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { color: var(--pink-light); font-size: 24px; font-weight: 600; letter-spacing: 1px; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { color: #d4b8f0; font-size: 15px; font-weight: 300; transition: color .2s; }
+    .nav-links a:hover { color: var(--pink-light); }
+    .nav-right { display: flex; gap: 20px; align-items: center; }
+    .nav-right button { background: none; border: none; cursor: pointer; color: #d4b8f0; font-size: 21px; position: relative; transition: color .2s; display: flex; }
+    .nav-right button:hover { color: var(--pink-light); }
+    .cart-count {
+      position: absolute; top: -8px; right: -10px;
+      background: var(--pink); color: #fff;
+      font-size: 11px; font-weight: 500;
+      min-width: 18px; height: 18px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center; padding: 0 4px;
+    }
+    .menu-toggle { display: none; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #3b1f7a 0%, #6b3fa0 38%, #c2559e 78%, #e88bbf 100%);
+      padding: 72px 6vw; min-height: 420px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+      flex-wrap: wrap;
+    }
+    .hero-text { max-width: 540px; }
+    .hero-tag {
+      display: inline-block; background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 30px;
+      padding: 6px 18px; color: #fff; font-size: 13px; margin-bottom: 20px;
+    }
+    .hero-text h1 { color: #fff; font-size: clamp(32px, 5vw, 52px); font-weight: 600; line-height: 1.15; margin-bottom: 16px; }
+    .hero-text p { color: #ecd9f7; font-size: 17px; margin-bottom: 32px; font-weight: 300; }
+    .btn-primary {
+      background: var(--pink-light); color: var(--purple-deep);
+      border: none; padding: 14px 34px; border-radius: 30px;
+      font-family: inherit; font-size: 15px; font-weight: 500; cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+    .hero-badge {
+      background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 20px; padding: 28px 36px; color: #fff; text-align: center; min-width: 190px;
+    }
+    .hero-badge .big { font-size: 56px; font-weight: 600; line-height: 1; }
+    .hero-badge .sub { font-size: 15px; color: #ecd9f7; margin-top: 6px; }
+    .hero-badge .note { font-size: 13px; color: var(--pink-light); margin-top: 6px; }
+
+    /* ===== SECTIONS ===== */
+    .section { padding: 56px 6vw; max-width: 1280px; margin: 0 auto; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-title { font-size: 30px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .section-sub { font-size: 15px; color: var(--text-muted); }
+
+    .cats { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px; }
+    .cat {
+      padding: 10px 24px; border-radius: 30px; font-family: inherit; font-size: 14px;
+      cursor: pointer; border: 1px solid var(--border); background: var(--white);
+      color: var(--text-muted); font-weight: 400; transition: all .2s;
+    }
+    .cat:hover { border-color: var(--purple); color: var(--purple); }
+    .cat.active { background: var(--purple-deep); color: #fff; border-color: var(--purple-deep); }
+
+    /* ===== PRODUCTS ===== */
+    .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 24px; }
+    .card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; transition: transform .2s, box-shadow .2s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(107, 63, 160, 0.14); }
+    .card-img { height: 300px; position: relative; overflow: hidden; background: linear-gradient(135deg, #ece8f6, #f4e6ef); }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+    .card:hover .card-img img { transform: scale(1.06); }
+    .wishlist {
+      position: absolute; top: 14px; right: 14px;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,0.85); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px; color: var(--pink); transition: all .2s;
+    }
+    .wishlist:hover { background: #fff; transform: scale(1.1); }
+    .wishlist.active { background: var(--pink); color: #fff; }
+    .badge {
+      position: absolute; top: 14px; left: 14px;
+      font-size: 12px; padding: 4px 12px; border-radius: 20px; font-weight: 500;
+    }
+    .badge-new { background: var(--pink-light); color: #72243e; }
+    .badge-sale { background: #cecbf6; color: #26215c; }
+    .card-body { padding: 16px 18px; }
+    .card-name { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .card-type { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
+    .card-foot { display: flex; align-items: center; justify-content: space-between; }
+    .price { font-size: 18px; font-weight: 600; color: var(--purple); }
+    .price .old { font-size: 13px; font-weight: 300; color: var(--text-muted); text-decoration: line-through; margin-right: 6px; }
+    .add-btn {
+      background: var(--purple-deep); color: #fff; border: none; border-radius: 22px;
+      padding: 8px 16px; font-family: inherit; font-size: 13px; cursor: pointer;
+      display: flex; align-items: center; gap: 5px; transition: background .2s;
+    }
+    .add-btn:hover { background: var(--purple); }
+
+    /* ===== PROMO ===== */
+    .promo {
+      background: linear-gradient(135deg, #6b3fa0 0%, #c2559e 100%);
+      border-radius: 24px; padding: 44px; margin: 20px auto 0; max-width: 1136px;
+      display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap;
+    }
+    .promo h2 { color: #fff; font-size: 26px; font-weight: 600; margin-bottom: 8px; }
+    .promo p { color: #ecd9f7; font-size: 15px; }
+    .promo-code {
+      background: rgba(255,255,255,0.2); border: 1.5px dashed rgba(255,255,255,0.6);
+      border-radius: 12px; padding: 12px 26px; color: #fff; font-size: 22px; font-weight: 600; letter-spacing: 3px;
+    }
+    .promo-btn {
+      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+      background: var(--pink-light); color: var(--purple-deep);
+      padding: 14px 30px; border-radius: 30px; font-size: 16px; font-weight: 500; transition: all .2s;
+    }
+    .promo-btn:hover { background: #fff; transform: translateY(-2px); }
+
+    /* ===== FEATURES ===== */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+    .feature { text-align: center; padding: 24px; }
+    .feature i { font-size: 38px; color: var(--pink); margin-bottom: 12px; }
+    .feature h3 { font-size: 17px; font-weight: 500; margin-bottom: 6px; }
+    .feature p { font-size: 14px; color: var(--text-muted); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--purple-darker); padding: 48px 6vw 0;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 32px;
+      max-width: 100%;
+    }
+    .footer-col h3 { color: #d4b8f0; font-size: 15px; font-weight: 500; margin-bottom: 14px; }
+    .footer-col a { display: block; color: #9b84c4; font-size: 14px; margin-bottom: 10px; transition: color .2s; }
+    .footer-col a:hover { color: var(--pink-light); }
+    .footer-brand { color: var(--pink-light); font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+    .footer-desc { color: #9b84c4; font-size: 14px; line-height: 1.7; }
+    .footer-bottom {
+      background: #241547; padding: 18px 6vw; text-align: center;
+      color: #7a62a8; font-size: 13px; margin-top: 40px;
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(120px);
+      background: var(--purple-deep); color: #fff; padding: 14px 28px; border-radius: 30px;
+      font-size: 14px; font-weight: 400; box-shadow: 0 10px 30px rgba(74,45,140,0.4);
+      transition: transform .3s cubic-bezier(.18,.89,.32,1.28); z-index: 200;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 48px 6vw; }
+      .hero-badge { display: none; }
+      .promo { padding: 32px 24px; text-align: center; justify-content: center; }
+      .section { padding: 40px 6vw; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="logo">✦ Lumière</div>
+    <div class="nav-links">
+      <a href="#home">หน้าแรก</a>
+      <a href="#shop">สินค้า</a>
+      <a href="#promo">โปรโมชัน</a>
+      <a href="lead.html">สมาชิก VIP</a>
+      <a href="#about">เกี่ยวกับเรา</a>
+    </div>
+    <div class="nav-right">
+      <button aria-label="ค้นหา"><i class="ti ti-search"></i></button>
+      <button aria-label="รายการโปรด"><i class="ti ti-heart"></i></button>
+      <button aria-label="ตะกร้าสินค้า"><i class="ti ti-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></button>
+      <button aria-label="บัญชี"><i class="ti ti-user"></i></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="home">
+    <div class="hero-text">
+      <span class="hero-tag">✨ คอลเลกชันใหม่ล่าสุด</span>
+      <h1>แฟชั่นฤดูร้อน<br>2025</h1>
+      <p>ค้นพบสไตล์ที่บ่งบอกความเป็นตัวคุณ สวยงาม มั่นใจ และไม่ซ้ำใคร</p>
+      <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView()">ช้อปเลย</button>
+    </div>
+    <div class="hero-badge">
+      <div class="big">50%</div>
+      <div class="sub">ส่วนลดสูงสุด</div>
+      <div class="note">เฉพาะสินค้าเลือกสรร</div>
+    </div>
+  </header>
+
+  <!-- SHOP -->
+  <section class="section" id="shop">
+    <div class="section-head">
+      <div class="section-title">สินค้าของเรา</div>
+      <div class="section-sub">เลือกสไตล์ที่ใช่สำหรับคุณ</div>
+    </div>
+
+    <div class="cats" id="cats">
+      <button class="cat active" data-cat="all">ทั้งหมด</button>
+      <button class="cat" data-cat="dress">ชุดเดรส</button>
+      <button class="cat" data-cat="top">เสื้อผ้า</button>
+      <button class="cat" data-cat="bag">กระเป๋า</button>
+      <button class="cat" data-cat="acc">เครื่องประดับ</button>
+      <button class="cat" data-cat="shoes">รองเท้า</button>
+    </div>
+
+    <div class="products" id="products"><!-- JS injected --></div>
+  </section>
+
+  <!-- PROMO -->
+  <section class="section" id="promo" style="padding-top:0;">
+    <div class="promo">
+      <div>
+        <h2>สมัครสมาชิก VIP รับส่วนลด 20% ทันที</h2>
+        <p>เข้าถึงคอลเลกชันใหม่ก่อนใคร พร้อมของขวัญวันเกิดและดีลพิเศษเฉพาะสมาชิก</p>
+      </div>
+      <a href="lead.html" class="promo-btn"><i class="ti ti-crown"></i> สมัครฟรีเลย</a>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="about" style="padding-top:0;">
+    <div class="features">
+      <div class="feature"><i class="ti ti-truck-delivery"></i><h3>จัดส่งฟรี</h3><p>เมื่อซื้อครบ ฿1,000 ทั่วประเทศ</p></div>
+      <div class="feature"><i class="ti ti-refresh"></i><h3>คืนสินค้าได้</h3><p>ภายใน 30 วัน ไม่มีเงื่อนไข</p></div>
+      <div class="feature"><i class="ti ti-shield-check"></i><h3>ของแท้ 100%</h3><p>รับประกันคุณภาพทุกชิ้น</p></div>
+      <div class="feature"><i class="ti ti-headset"></i><h3>บริการ 24/7</h3><p>พร้อมดูแลคุณทุกเวลา</p></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-col">
+      <div class="footer-brand">✦ Lumière</div>
+      <div class="footer-desc">แฟชั่นสุดชิคที่บ่งบอก<br>ความเป็นตัวคุณในทุกวัน</div>
+    </div>
+    <div class="footer-col">
+      <h3>ลิงก์</h3>
+      <a href="#">เกี่ยวกับเรา</a>
+      <a href="#">ติดต่อเรา</a>
+      <a href="#">บล็อกแฟชั่น</a>
+      <a href="#">ร่วมงานกับเรา</a>
+    </div>
+    <div class="footer-col">
+      <h3>บริการ</h3>
+      <a href="#">นโยบายคืนสินค้า</a>
+      <a href="#">ติดตามพัสดุ</a>
+      <a href="#">คำถามที่พบบ่อย</a>
+      <a href="#">ช่วยเหลือ</a>
+    </div>
+    <div class="footer-col">
+      <h3>ติดตามเรา</h3>
+      <a href="#"><i class="ti ti-brand-instagram" style="margin-right:8px;"></i>Instagram</a>
+      <a href="#"><i class="ti ti-brand-facebook" style="margin-right:8px;"></i>Facebook</a>
+      <a href="#"><i class="ti ti-brand-tiktok" style="margin-right:8px;"></i>TikTok</a>
+      <a href="#"><i class="ti ti-brand-line" style="margin-right:8px;"></i>LINE</a>
+    </div>
+  </footer>
+  <div class="footer-bottom">© 2025 Lumière Fashion. สงวนลิขสิทธิ์ทุกประการ</div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"><i class="ti ti-circle-check"></i><span id="toastMsg"></span></div>
+
+  <script>
+    const IMG = id => `https://images.unsplash.com/photo-${id}?w=500&h=600&fit=crop&q=80&auto=format`;
+    const PRODUCTS = [
+      { name: 'เดรสซาตินสุดหรู', type: 'ชุดเดรส', cat: 'dress', price: 1290, photo: IMG('1595777457583-95e059d581b8'), badge: 'new' },
+      { name: 'เสื้อเบลาส์แขนยาว', type: 'เสื้อผ้า', cat: 'top', price: 590, old: 790, photo: IMG('1583743814966-8936f5b7be1a'), badge: 'sale' },
+      { name: 'กระเป๋าหนังพรีเมียม', type: 'กระเป๋า', cat: 'bag', price: 2190, photo: IMG('1584917865442-de89df76afd3'), badge: null },
+      { name: 'สร้อยคอมินิมอล', type: 'เครื่องประดับ', cat: 'acc', price: 890, photo: IMG('1611652022419-a9419f74343d'), badge: 'new' },
+      { name: 'เดรสลำลองสไตล์เกาหลี', type: 'ชุดเดรส', cat: 'dress', price: 1590, old: 2090, photo: IMG('1566174053879-31528523f8ae'), badge: 'sale' },
+      { name: 'รองเท้าส้นสูงคลาสสิก', type: 'รองเท้า', cat: 'shoes', price: 1890, photo: IMG('1543163521-1bf539c55dd2'), badge: null },
+      { name: 'เสื้อยืดคอตตอนพรีเมียม', type: 'เสื้อผ้า', cat: 'top', price: 490, photo: IMG('1521572163474-6864f9cf17ab'), badge: null },
+      { name: 'กระเป๋าสะพายข้าง', type: 'กระเป๋า', cat: 'bag', price: 1290, old: 1690, photo: IMG('1548036328-c9fa89d128fa'), badge: 'sale' },
+      { name: 'เดรสยาวลายดอกไม้', type: 'ชุดเดรส', cat: 'dress', price: 1790, photo: IMG('1612336307429-8a898d10e223'), badge: 'new' },
+      { name: 'ต่างหูสไตล์วินเทจ', type: 'เครื่องประดับ', cat: 'acc', price: 390, photo: IMG('1515562141207-7a88fb7ce338'), badge: null },
+      { name: 'รองเท้าผ้าใบมินิมอล', type: 'รองเท้า', cat: 'shoes', price: 990, photo: IMG('1525966222134-fcfa99b8ae77'), badge: null },
+      { name: 'แหวนเงินแฟชั่น', type: 'เครื่องประดับ', cat: 'acc', price: 590, photo: IMG('1599643478518-a784e5dc4c8f'), badge: 'new' },
+    ];
+
+    let cart = 0;
+    const productsEl = document.getElementById('products');
+    const cartCountEl = document.getElementById('cartCount');
+
+    function fmt(n) { return '฿' + n.toLocaleString('th-TH'); }
+
+    function render(cat = 'all') {
+      const list = cat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
+      productsEl.innerHTML = list.map(p => `
+        <article class="card">
+          <div class="card-img">
+            <img src="${p.photo}" alt="${p.name}" loading="lazy">
+            ${p.badge === 'new' ? '<span class="badge badge-new">ใหม่</span>' : ''}
+            ${p.badge === 'sale' ? '<span class="badge badge-sale">ลดราคา</span>' : ''}
+            <button class="wishlist" aria-label="เพิ่มในรายการโปรด" onclick="toggleWish(this)"><i class="ti ti-heart"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-name">${p.name}</div>
+            <div class="card-type">${p.type}</div>
+            <div class="card-foot">
+              <span class="price">${p.old ? `<span class="old">${fmt(p.old)}</span>` : ''}${fmt(p.price)}</span>
+              <button class="add-btn" onclick="addCart('${p.name}')"><i class="ti ti-plus"></i>ใส่ตะกร้า</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function addCart(name) {
+      cart++;
+      cartCountEl.textContent = cart;
+      showToast('เพิ่ม "' + name + '" ลงตะกร้าแล้ว');
+    }
+
+    function toggleWish(btn) {
+      btn.classList.toggle('active');
+      const icon = btn.querySelector('i');
+      if (btn.classList.contains('active')) {
+        icon.className = 'ti ti-heart-filled';
+        showToast('เพิ่มในรายการโปรดแล้ว');
+      } else {
+        icon.className = 'ti ti-heart';
+      }
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    document.getElementById('cats').addEventListener('click', e => {
+      const btn = e.target.closest('.cat');
+      if (!btn) return;
+      document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      render(btn.dataset.cat);
+    });
+
+    render();
+  </script>
+</body>
+</html>

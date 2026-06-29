@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สมัครสมาชิก VIP — Lumière</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+  <style>
+    :root {
+      --blue: #378add; --purple: #6b3fa0; --purple-deep: #4a2d8c; --purple-darker: #2e1a5c;
+      --pink: #c2559e; --pink-light: #f7c6e8; --text: #2a2435; --text-muted: #8a8499;
+      --bg: #faf8fc; --white: #fff; --border: #ece8f2; --green: #1d9e75; --danger: #d8456a;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Kanit', sans-serif; background: var(--bg); color: var(--text); font-weight: 300; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAVBAR */
+    .nav { background: rgba(74,45,140,0.97); padding: 16px 6vw; display: flex; align-items: center; justify-content: space-between; }
+    .logo { color: var(--pink-light); font-size: 24px; font-weight: 600; letter-spacing: 1px; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { color: #d4b8f0; font-size: 15px; transition: color .2s; }
+    .nav-links a:hover { color: var(--pink-light); }
+
+    /* LAYOUT */
+    .lead-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 58px); }
+
+    /* PITCH (left) */
+    .pitch {
+      position: relative; color: #fff; padding: 64px 5vw;
+      display: flex; flex-direction: column; justify-content: center;
+      background:
+        linear-gradient(135deg, rgba(59,31,122,0.93), rgba(107,63,160,0.86) 50%, rgba(194,85,158,0.82)),
+        url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=80&auto=format&fit=crop') center/cover;
+    }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 30px; padding: 7px 18px; font-size: 13px; width: fit-content; margin-bottom: 22px; }
+    .pitch h1 { font-size: clamp(30px, 4vw, 46px); font-weight: 600; line-height: 1.15; margin-bottom: 16px; }
+    .pitch h1 .hl { color: var(--pink-light); }
+    .pitch .lead-sub { font-size: 17px; color: #ecd9f7; margin-bottom: 32px; max-width: 440px; }
+    .benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; margin-bottom: 36px; max-width: 480px; }
+    .benefit { display: flex; gap: 12px; align-items: flex-start; }
+    .benefit i { font-size: 22px; color: var(--pink-light); margin-top: 2px; }
+    .benefit b { font-weight: 500; font-size: 15px; display: block; }
+    .benefit span { font-size: 13px; color: #d8c4ec; }
+    .proof { display: flex; align-items: center; gap: 16px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 24px; }
+    .avatars { display: flex; }
+    .avatars span { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #6b3fa0; margin-left: -10px; background-size: cover; background-position: center; }
+    .avatars span:first-child { margin-left: 0; }
+    .proof-text b { font-weight: 500; }
+    .stars { color: #ffce4a; font-size: 14px; letter-spacing: 1px; }
+
+    /* FORM (right) */
+    .form-side { display: flex; align-items: center; justify-content: center; padding: 48px 5vw; }
+    .form-card { background: var(--white); border-radius: 22px; border: 1px solid var(--border); box-shadow: 0 18px 50px rgba(74,45,140,0.1); padding: 40px; width: 100%; max-width: 440px; }
+    .form-card h2 { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
+    .form-card .desc { font-size: 14px; color: var(--text-muted); margin-bottom: 26px; }
+    .field { margin-bottom: 18px; }
+    .field label { display: block; font-size: 14px; font-weight: 400; margin-bottom: 7px; }
+    .field label .req { color: var(--danger); }
+    .field input { width: 100%; font-family: inherit; font-size: 15px; font-weight: 300; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 12px; transition: border-color .2s; color: var(--text); }
+    .field input:focus { outline: none; border-color: var(--purple); }
+    .field input.err { border-color: var(--danger); }
+    .field .msg { font-size: 12px; color: var(--danger); margin-top: 5px; display: none; }
+    .field .msg.show { display: block; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { font-family: inherit; font-size: 13px; padding: 8px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: #fff; color: var(--text-muted); cursor: pointer; transition: all .15s; }
+    .chip.on { background: #f1ecfa; border-color: var(--purple); color: var(--purple); font-weight: 400; }
+    .consent { display: flex; gap: 10px; align-items: flex-start; margin: 6px 0 22px; }
+    .consent input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--purple); flex-shrink: 0; cursor: pointer; }
+    .consent label { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+    .consent a { color: var(--purple); text-decoration: underline; }
+    .submit { width: 100%; background: var(--purple-deep); color: #fff; border: none; font-family: inherit; font-size: 16px; font-weight: 500; padding: 15px; border-radius: 14px; cursor: pointer; transition: all .2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .submit:hover { background: var(--purple); transform: translateY(-2px); }
+    .form-foot { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 16px; }
+    .form-foot i { color: var(--green); }
+
+    /* SUCCESS */
+    .success { display: none; text-align: center; padding: 16px 0; }
+    .success.show { display: block; animation: pop .4s ease; }
+    @keyframes pop { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: scale(1); } }
+    .success .ring { width: 78px; height: 78px; border-radius: 50%; background: #e5f6ef; color: var(--green); font-size: 40px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .success h2 { font-size: 24px; margin-bottom: 8px; }
+    .success p { font-size: 15px; color: var(--text-muted); margin-bottom: 24px; }
+    .code-box { background: linear-gradient(135deg, #6b3fa0, #c2559e); border-radius: 16px; padding: 22px; color: #fff; margin-bottom: 24px; }
+    .code-box .clabel { font-size: 13px; color: #ecd9f7; margin-bottom: 8px; }
+    .code-box .code { font-size: 30px; font-weight: 600; letter-spacing: 4px; }
+    .copy-btn { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); color: #fff; font-family: inherit; font-size: 12px; padding: 6px 14px; border-radius: 20px; cursor: pointer; margin-top: 12px; }
+    .copy-btn:hover { background: rgba(255,255,255,0.3); }
+    .shop-link { display: inline-flex; align-items: center; gap: 7px; background: var(--purple-deep); color: #fff; padding: 13px 28px; border-radius: 14px; font-size: 15px; font-weight: 500; }
+    .shop-link:hover { background: var(--purple); }
+
+    /* FOOTER */
+    .footer-bottom { background: var(--purple-darker); padding: 18px 6vw; display: flex; align-items: center; justify-content: space-between; color: #9b84c4; font-size: 13px; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom a { color: #9b84c4; cursor: pointer; }
+    .footer-bottom a:hover { color: var(--pink-light); }
+
+    /* ADMIN MODAL */
+    .modal-bg { display: none; position: fixed; inset: 0; background: rgba(46,26,92,0.55); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
+    .modal-bg.show { display: flex; }
+    .modal { background: #fff; border-radius: 18px; width: 100%; max-width: 720px; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; }
+    .modal-head { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .modal-head h3 { font-size: 18px; font-weight: 500; }
+    .modal-head .count { font-size: 13px; color: var(--text-muted); }
+    .modal-head button { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
+    .modal-body { overflow: auto; padding: 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; padding: 12px 16px; background: #f7f4fb; color: var(--text-muted); font-weight: 500; position: sticky; top: 0; }
+    td { padding: 11px 16px; border-top: 1px solid var(--border); font-weight: 300; }
+    .empty { padding: 50px; text-align: center; color: var(--text-muted); }
+    .modal-foot { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
+    .btn-ghost, .btn-solid { font-family: inherit; font-size: 14px; padding: 10px 20px; border-radius: 10px; cursor: pointer; border: 1px solid var(--border); background: #fff; color: var(--text); }
+    .btn-ghost:hover { background: #f7f4fb; }
+    .btn-solid { background: var(--purple-deep); color: #fff; border-color: var(--purple-deep); }
+    .btn-solid:hover { background: var(--purple); }
+    .btn-danger { color: var(--danger); border-color: #f3c9d5; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(120px); background: var(--purple-deep); color: #fff; padding: 14px 28px; border-radius: 30px; font-size: 14px; box-shadow: 0 10px 30px rgba(74,45,140,0.4); transition: transform .3s cubic-bezier(.18,.89,.32,1.28); z-index: 400; display: flex; align-items: center; gap: 8px; }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .lead-wrap { grid-template-columns: 1fr; }
+      .pitch { padding: 48px 7vw; }
+      .benefits { grid-template-columns: 1fr 1fr; }
+      .form-side { padding: 36px 7vw 56px; }
+      .form-card { box-shadow: none; padding: 32px 4vw; }
+    }
+    @media (max-width: 480px) { .benefits { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="logo">✦ Lumière</a>
+    <div class="nav-links">
+      <a href="index.html">หน้าแรก</a>
+      <a href="index.html#shop">สินค้า</a>
+      <a href="index.html#promo">โปรโมชัน</a>
+    </div>
+  </nav>
+
+  <main class="lead-wrap">
+    <!-- LEFT: PITCH -->
+    <section class="pitch">
+      <span class="eyebrow"><i class="ti ti-crown"></i> Lumière VIP Club</span>
+      <h1>สมัครสมาชิกวันนี้<br>รับส่วนลด <span class="hl">20%</span> ทันที</h1>
+      <p class="lead-sub">เข้าร่วมครอบครัว Lumière รับสิทธิพิเศษก่อนใคร พร้อมดีลสุดเอ็กซ์คลูซีฟที่หาไม่ได้จากที่อื่น</p>
+
+      <div class="benefits">
+        <div class="benefit"><i class="ti ti-discount-2"></i><div><b>ส่วนลด 20%</b><span>สำหรับการช้อปครั้งแรก</span></div></div>
+        <div class="benefit"><i class="ti ti-sparkles"></i><div><b>เข้าถึงก่อนใคร</b><span>คอลเลกชันใหม่ล่าสุด</span></div></div>
+        <div class="benefit"><i class="ti ti-gift"></i><div><b>ของขวัญวันเกิด</b><span>เซอร์ไพรส์พิเศษทุกปี</span></div></div>
+        <div class="benefit"><i class="ti ti-ticket"></i><div><b>สิทธิ์เฉพาะสมาชิก</b><span>กิจกรรมและฟแลชเซล</span></div></div>
+      </div>
+
+      <div class="proof">
+        <div class="avatars">
+          <span style="background-image:url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=80&q=60&auto=format&fit=crop')"></span>
+          <span style="background-image:url('https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=80&q=60&auto=format&fit=crop')"></span>
+          <span style="background-image:url('https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=80&q=60&auto=format&fit=crop')"></span>
+        </div>
+        <div class="proof-text">
+          <div class="stars">★★★★★</div>
+          <div style="font-size:13px; color:#ecd9f7;">มีสมาชิกแล้วกว่า <b>12,400+</b> คน</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: FORM -->
+    <section class="form-side">
+      <div class="form-card">
+        <!-- FORM STATE -->
+        <div id="formState">
+          <h2>สมัครฟรี ไม่มีค่าใช้จ่าย</h2>
+          <p class="desc">กรอกข้อมูลด้านล่างเพื่อรับโค้ดส่วนลดทันที</p>
+
+          <form id="leadForm" novalidate>
+            <div class="field">
+              <label>ชื่อ-นามสกุล <span class="req">*</span></label>
+              <input type="text" id="name" placeholder="เช่น สมหญิง ใจดี" autocomplete="name">
+              <div class="msg" id="nameMsg">กรุณากรอกชื่อของคุณ</div>
+            </div>
+            <div class="field">
+              <label>อีเมล <span class="req">*</span></label>
+              <input type="email" id="email" placeholder="name@example.com" autocomplete="email">
+              <div class="msg" id="emailMsg">กรุณากรอกอีเมลให้ถูกต้อง</div>
+            </div>
+            <div class="field">
+              <label>เบอร์โทรศัพท์ <span class="req">*</span></label>
+              <input type="tel" id="phone" placeholder="08X-XXX-XXXX" autocomplete="tel" maxlength="10">
+              <div class="msg" id="phoneMsg">กรุณากรอกเบอร์โทร 10 หลัก</div>
+            </div>
+            <div class="field">
+              <label>สไตล์ที่คุณชอบ <span style="color:var(--text-muted);font-size:12px;">(เลือกได้หลายอย่าง)</span></label>
+              <div class="chips" id="chips">
+                <button type="button" class="chip" data-v="ชุดเดรส">ชุดเดรส</button>
+                <button type="button" class="chip" data-v="ลำลอง">ลำลอง</button>
+                <button type="button" class="chip" data-v="ทำงาน">ทำงาน</button>
+                <button type="button" class="chip" data-v="ปาร์ตี้">ปาร์ตี้</button>
+                <button type="button" class="chip" data-v="มินิมอล">มินิมอล</button>
+              </div>
+            </div>
+            <div class="field">
+              <label>วันเกิด <span style="color:var(--text-muted);font-size:12px;">(เพื่อรับของขวัญพิเศษ)</span></label>
+              <input type="date" id="birthday">
+            </div>
+
+            <div class="consent">
+              <input type="checkbox" id="consent">
+              <label for="consent">ฉันยินยอมให้ Lumière จัดเก็บและใช้ข้อมูลส่วนบุคคลเพื่อรับข่าวสารและสิทธิประโยชน์ ตาม<a href="#">นโยบายความเป็นส่วนตัว (PDPA)</a></label>
+            </div>
+
+            <button type="submit" class="submit"><i class="ti ti-gift"></i> รับส่วนลด 20% เลย</button>
+            <p class="form-foot"><i class="ti ti-lock"></i> ข้อมูลของคุณปลอดภัย เราไม่ส่งต่อให้บุคคลที่สาม</p>
+          </form>
+        </div>
+
+        <!-- SUCCESS STATE -->
+        <div class="success" id="successState">
+          <div class="ring"><i class="ti ti-check"></i></div>
+          <h2>ยินดีต้อนรับสู่ Lumière! 🎉</h2>
+          <p>เราส่งรายละเอียดไปที่อีเมลของคุณแล้ว<br>นี่คือโค้ดส่วนลด 20% สำหรับคุณ</p>
+          <div class="code-box">
+            <div class="clabel">โค้ดส่วนลดของคุณ</div>
+            <div class="code" id="codeText">LUMVIP20</div>
+            <button class="copy-btn" onclick="copyCode()"><i class="ti ti-copy"></i> คัดลอกโค้ด</button>
+          </div>
+          <a href="index.html" class="shop-link"><i class="ti ti-shopping-bag"></i> เริ่มช้อปเลย</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer-bottom">
+    <span>© 2025 Lumière Fashion. สงวนลิขสิทธิ์ทุกประการ</span>
+    <a onclick="openAdmin()"><i class="ti ti-database"></i> จัดการ Leads</a>
+  </div>
+
+  <!-- ADMIN MODAL -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h3>รายชื่อ Leads ที่เก็บได้</h3>
+          <div class="count" id="leadCount">0 รายการ</div>
+        </div>
+        <button onclick="closeAdmin()" aria-label="ปิด">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <button class="btn-ghost btn-danger" onclick="clearLeads()"><i class="ti ti-trash"></i> ล้างทั้งหมด</button>
+        <button class="btn-solid" onclick="exportCSV()"><i class="ti ti-download"></i> ดาวน์โหลด CSV</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><i class="ti ti-circle-check"></i><span id="toastMsg"></span></div>
+
+  <script>
+    const STORE_KEY = 'lumiere_leads';
+    const selectedStyles = new Set();
+
+    /* ===== STYLE CHIPS ===== */
+    document.getElementById('chips').addEventListener('click', e => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      chip.classList.toggle('on');
+      const v = chip.dataset.v;
+      chip.classList.contains('on') ? selectedStyles.add(v) : selectedStyles.delete(v);
+    });
+
+    /* ===== VALIDATION HELPERS ===== */
+    function setErr(id, show) {
+      document.getElementById(id).classList.toggle('err', show);
+      document.getElementById(id + 'Msg').classList.toggle('show', show);
+    }
+    const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    const isPhone = v => /^0\d{8,9}$/.test(v.replace(/\D/g, ''));
+
+    // allow only digits in phone field
+    document.getElementById('phone').addEventListener('input', e => {
+      e.target.value = e.target.value.replace(/\D/g, '');
+    });
+
+    /* ===== SUBMIT ===== */
+    document.getElementById('leadForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const birthday = document.getElementById('birthday').value;
+      const consent = document.getElementById('consent').checked;
+
+      const okName = name.length >= 2;
+      const okEmail = isEmail(email);
+      const okPhone = isPhone(phone);
+      setErr('name', !okName);
+      setErr('email', !okEmail);
+      setErr('phone', !okPhone);
+
+      if (!okName || !okEmail || !okPhone) return;
+      if (!consent) { showToast('กรุณายอมรับนโยบายความเป็นส่วนตัวก่อน'); return; }
+
+      const lead = {
+        name, email, phone, birthday,
+        styles: [...selectedStyles].join(', '),
+        date: new Date().toLocaleString('th-TH')
+      };
+
+      // --- SAVE LEAD ---
+      const leads = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+      leads.push(lead);
+      localStorage.setItem(STORE_KEY, JSON.stringify(leads));
+
+      /* === เชื่อมต่อระบบจริง (ถ้าต้องการ) ===
+         แทนที่/เพิ่มจากบรรทัดด้านบนด้วยการส่งข้อมูลไป backend:
+         fetch('https://YOUR-ENDPOINT', {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify(lead)
+         });
+         ใช้ได้กับ Google Sheets, Formspree, n8n webhook, ฯลฯ
+      ====================================== */
+
+      // show success
+      document.getElementById('formState').style.display = 'none';
+      document.getElementById('successState').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ===== COPY CODE ===== */
+    function copyCode() {
+      const code = document.getElementById('codeText').textContent;
+      navigator.clipboard.writeText(code).then(() => showToast('คัดลอกโค้ด ' + code + ' แล้ว'));
+    }
+
+    /* ===== ADMIN ===== */
+    function getLeads() { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); }
+
+    function openAdmin() {
+      const leads = getLeads();
+      document.getElementById('leadCount').textContent = leads.length + ' รายการ';
+      const body = document.getElementById('modalBody');
+      if (!leads.length) {
+        body.innerHTML = '<div class="empty"><i class="ti ti-inbox" style="font-size:40px;"></i><p>ยังไม่มีข้อมูล Lead</p></div>';
+      } else {
+        body.innerHTML = `<table>
+          <thead><tr><th>#</th><th>ชื่อ</th><th>อีเมล</th><th>เบอร์โทร</th><th>สไตล์</th><th>วันที่</th></tr></thead>
+          <tbody>${leads.map((l, i) => `<tr>
+            <td>${i + 1}</td><td>${esc(l.name)}</td><td>${esc(l.email)}</td>
+            <td>${esc(l.phone)}</td><td>${esc(l.styles) || '-'}</td><td>${esc(l.date)}</td>
+          </tr>`).join('')}</tbody></table>`;
+      }
+      document.getElementById('modalBg').classList.add('show');
+    }
+    function closeAdmin() { document.getElementById('modalBg').classList.remove('show'); }
+    function esc(s) { return (s || '').replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c])); }
+
+    function exportCSV() {
+      const leads = getLeads();
+      if (!leads.length) { showToast('ยังไม่มีข้อมูลให้ดาวน์โหลด'); return; }
+      const head = ['ชื่อ', 'อีเมล', 'เบอร์โทร', 'วันเกิด', 'สไตล์', 'วันที่สมัคร'];
+      const rows = leads.map(l => [l.name, l.email, l.phone, l.birthday, l.styles, l.date]
+        .map(v => `"${(v || '').replace(/"/g, '""')}"`).join(','));
+      const csv = '﻿' + [head.join(','), ...rows].join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'lumiere-leads.csv';
+      a.click();
+      showToast('ดาวน์โหลด CSV ' + leads.length + ' รายการแล้ว');
+    }
+    function clearLeads() {
+      if (!getLeads().length) { showToast('ไม่มีข้อมูลให้ลบ'); return; }
+      if (confirm('ต้องการลบข้อมูล Lead ทั้งหมดใช่หรือไม่?')) {
+        localStorage.removeItem(STORE_KEY);
+        openAdmin();
+        showToast('ลบข้อมูลทั้งหมดแล้ว');
+      }
+    }
+    document.getElementById('modalBg').addEventListener('click', e => {
+      if (e.target.id === 'modalBg') closeAdmin();
+    });
+
+    /* ===== TOAST ===== */
+    let toastTimer;
+    function showToast(msg) {
+      document.getElementById('toastMsg').textContent = msg;
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+    }
+  </script>
+</body>
+</html>
