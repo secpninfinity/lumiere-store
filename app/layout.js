@@ -1,5 +1,7 @@
 import { Kanit } from 'next/font/google';
 import './globals.css';
+import { CartProvider } from '@/components/CartContext';
+import CartDrawer from '@/components/CartDrawer';
 
 const kanit = Kanit({
   subsets: ['thai', 'latin'],
@@ -21,7 +23,12 @@ export default function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css"
         />
       </head>
-      <body className={kanit.className}>{children}</body>
+      <body className={kanit.className}>
+        <CartProvider>
+          {children}
+          <CartDrawer />
+        </CartProvider>
+      </body>
     </html>
   );
 }

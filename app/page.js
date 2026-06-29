@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Toast from '@/components/Toast';
+import { useCart } from '@/components/CartContext';
 import { PRODUCTS, CATEGORIES, fmt } from '@/lib/products';
 
 const LOOKBOOK = [
@@ -36,7 +37,7 @@ const LOOKBOOK = [
 ];
 
 export default function Home() {
-  const [cart, setCart] = useState(0);
+  const { addItem } = useCart();
   const [activeCat, setActiveCat] = useState('all');
   const [wished, setWished] = useState(() => new Set());
   const [toast, setToast] = useState({ msg: '', show: false });
@@ -48,9 +49,9 @@ export default function Home() {
     timer.current = setTimeout(() => setToast((t) => ({ ...t, show: false })), 2200);
   };
 
-  const addCart = (name) => {
-    setCart((c) => c + 1);
-    showToast(`จองน้อง "${name}" แล้ว 🐾`);
+  const addCart = (cat) => {
+    const added = addItem(cat);
+    showToast(added ? `เพิ่ม "${cat.name}" ลงตะกร้าแล้ว 🐾` : `"${cat.name}" อยู่ในตะกร้าแล้ว`);
   };
 
   const toggleWish = (name) => {
@@ -70,7 +71,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar cartCount={cart} />
+      <Navbar />
 
       {/* HERO */}
       <header className="hero" id="home">
@@ -137,7 +138,7 @@ export default function Home() {
                       {p.old && <span className="old">{fmt(p.old)}</span>}
                       {fmt(p.price)}
                     </span>
-                    <button className="add-btn" onClick={() => addCart(p.name)}>
+                    <button className="add-btn" onClick={() => addCart(p)}>
                       <i className="ti ti-paw"></i>จองน้อง
                     </button>
                   </div>

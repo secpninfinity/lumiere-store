@@ -1,6 +1,11 @@
-import Link from 'next/link';
+'use client';
 
-export default function Navbar({ cartCount = 0 }) {
+import Link from 'next/link';
+import { useCart } from './CartContext';
+
+export default function Navbar() {
+  const { items, openCart } = useCart();
+
   return (
     <nav className="nav">
       <Link href="/" className="logo"><i className="ti ti-paw logo-star" aria-hidden="true"></i> Meow House</Link>
@@ -14,9 +19,9 @@ export default function Navbar({ cartCount = 0 }) {
       <div className="nav-right">
         <button aria-label="ค้นหา"><i className="ti ti-search"></i></button>
         <button aria-label="รายการโปรด"><i className="ti ti-heart"></i></button>
-        <button aria-label="รายการจอง">
+        <button aria-label="ตะกร้าจองน้อง" onClick={openCart}>
           <i className="ti ti-shopping-cart"></i>
-          <span className="cart-count">{cartCount}</span>
+          {items.length > 0 && <span className="cart-count">{items.length}</span>}
         </button>
         <button aria-label="บัญชี"><i className="ti ti-user"></i></button>
       </div>
