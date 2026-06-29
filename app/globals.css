@@ -238,7 +238,7 @@ img { max-width: 100%; display: block; }
   display: flex; flex-direction: column; justify-content: center;
   background:
     linear-gradient(135deg, rgba(59,31,122,0.93), rgba(107,63,160,0.86) 50%, rgba(194,85,158,0.82)),
-    url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=80&auto=format&fit=crop') center/cover;
+    url('https://images.unsplash.com/photo-1583795128727-6ec3642408f8?w=900&q=80&auto=format&fit=crop') center/cover;
 }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 30px; padding: 7px 18px; font-size: 13px; width: fit-content; margin-bottom: 22px; }
 .pitch h1 { font-size: clamp(30px, 4vw, 46px); font-weight: 600; line-height: 1.15; margin-bottom: 16px; }

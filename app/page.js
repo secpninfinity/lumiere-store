@@ -9,29 +9,29 @@ import { PRODUCTS, CATEGORIES, fmt } from '@/lib/products';
 
 const LOOKBOOK = [
   {
-    title: 'Summer Satin',
-    label: 'เดรสออกงาน',
-    photo: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=900&q=80&auto=format&fit=crop',
+    title: 'เจ้าเหมียวจอมซน',
+    label: 'แมวเด่นสัปดาห์นี้',
+    photo: 'https://images.unsplash.com/photo-1472491235688-bdc81a63246e?w=900&q=80&auto=format&fit=crop',
   },
   {
-    title: 'Soft Blazer',
-    label: 'ลุคทำงาน',
-    photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=900&q=80&auto=format&fit=crop',
+    title: 'นอนตากแดด',
+    label: 'โมเมนต์น่ารัก',
+    photo: 'https://images.unsplash.com/photo-1568152950566-c1bf43f4ab28?w=900&q=80&auto=format&fit=crop',
   },
   {
-    title: 'City Casual',
-    label: 'สตรีทสไตล์',
-    photo: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=80&auto=format&fit=crop',
+    title: 'พี่น้องขนปุย',
+    label: 'คู่หูซี้',
+    photo: 'https://images.unsplash.com/photo-1494256997604-768d1f608cac?w=900&q=80&auto=format&fit=crop',
   },
   {
-    title: 'Weekend Bloom',
-    label: 'เดรสลายดอก',
-    photo: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=900&q=80&auto=format&fit=crop',
+    title: 'ตากลมโต',
+    label: 'สายตาวิงวอน',
+    photo: 'https://images.unsplash.com/photo-1535930891776-0c2dfb7fda1a?w=900&q=80&auto=format&fit=crop',
   },
   {
-    title: 'Evening Detail',
-    label: 'เครื่องประดับ',
-    photo: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=900&q=80&auto=format&fit=crop',
+    title: 'เจ้าชายขนยาว',
+    label: 'สง่างาม',
+    photo: 'https://images.unsplash.com/photo-1574144611937-0df059b5ef3e?w=900&q=80&auto=format&fit=crop',
   },
 ];
 
@@ -50,7 +50,7 @@ export default function Home() {
 
   const addCart = (name) => {
     setCart((c) => c + 1);
-    showToast(`เพิ่ม "${name}" ลงตะกร้าแล้ว`);
+    showToast(`จองน้อง "${name}" แล้ว 🐾`);
   };
 
   const toggleWish = (name) => {
@@ -75,23 +75,23 @@ export default function Home() {
       {/* HERO */}
       <header className="hero" id="home">
         <div className="hero-text">
-          <span className="hero-tag">✨ คอลเลกชันใหม่ล่าสุด</span>
-          <h1>แฟชั่นฤดูร้อน<br />2025</h1>
-          <p>ค้นพบสไตล์ที่บ่งบอกความเป็นตัวคุณ สวยงาม มั่นใจ และไม่ซ้ำใคร</p>
-          <a href="#shop" className="btn-primary">ช้อปเลย</a>
+          <span className="hero-tag">🐾 น้องแมวพร้อมย้ายบ้าน</span>
+          <h1>หาเพื่อนซี้<br />ขนปุยตัวใหม่</h1>
+          <p>น้องแมวสายพันธุ์แท้ สุขภาพดี ฉีดวัคซีนครบ พร้อมส่งต่อความน่ารักให้ครอบครัวคุณ</p>
+          <a href="#shop" className="btn-primary">ดูน้องแมว</a>
         </div>
         <div className="hero-badge">
-          <div className="big">50%</div>
-          <div className="sub">ส่วนลดสูงสุด</div>
-          <div className="note">เฉพาะสินค้าเลือกสรร</div>
+          <div className="big">100+</div>
+          <div className="sub">น้องพร้อมบ้านใหม่</div>
+          <div className="note">ฉีดวัคซีนครบทุกตัว</div>
         </div>
       </header>
 
       {/* SHOP */}
       <section className="section" id="shop">
         <div className="section-head">
-          <div className="section-title">สินค้าของเรา</div>
-          <div className="section-sub">เลือกสไตล์ที่ใช่สำหรับคุณ</div>
+          <div className="section-title">น้องแมวของเรา</div>
+          <div className="section-sub">เลือกสายพันธุ์ที่ถูกใจคุณ</div>
         </div>
 
         <div className="cats">
@@ -119,8 +119,8 @@ export default function Home() {
                     sizes="(max-width: 860px) 50vw, 280px"
                     style={{ objectFit: 'cover' }}
                   />
-                  {p.badge === 'new' && <span className="badge badge-new">ใหม่</span>}
-                  {p.badge === 'sale' && <span className="badge badge-sale">ลดราคา</span>}
+                  {p.badge === 'new' && <span className="badge badge-new">น้องใหม่</span>}
+                  {p.badge === 'sale' && <span className="badge badge-sale">โปรพิเศษ</span>}
                   <button
                     className={`wishlist ${isWished ? 'active' : ''}`}
                     aria-label="เพิ่มในรายการโปรด"
@@ -138,7 +138,7 @@ export default function Home() {
                       {fmt(p.price)}
                     </span>
                     <button className="add-btn" onClick={() => addCart(p.name)}>
-                      <i className="ti ti-plus"></i>ใส่ตะกร้า
+                      <i className="ti ti-paw"></i>จองน้อง
                     </button>
                   </div>
                 </div>
@@ -151,8 +151,8 @@ export default function Home() {
       {/* LOOKBOOK */}
       <section className="section lookbook-section" id="lookbook">
         <div className="section-head">
-          <div className="section-title">Lookbook</div>
-          <div className="section-sub">แรงบันดาลใจจาก 5 ลุคที่หยิบไปแต่งต่อได้ทันที</div>
+          <div className="section-title">แกลเลอรีน้องแมว</div>
+          <div className="section-sub">รวมโมเมนต์น่ารักของน้องๆ ในร้าน</div>
         </div>
 
         <div className="lookbook-grid">
@@ -178,8 +178,8 @@ export default function Home() {
       <section className="section" id="promo" style={{ paddingTop: 0 }}>
         <div className="promo">
           <div>
-            <h2>สมัครสมาชิก VIP รับส่วนลด 20% ทันที</h2>
-            <p>เข้าถึงคอลเลกชันใหม่ก่อนใคร พร้อมของขวัญวันเกิดและดีลพิเศษเฉพาะสมาชิก</p>
+            <h2>สมัครสมาชิก VIP รับส่วนลดค่าน้อง 20%</h2>
+            <p>จองน้องแมวมาใหม่ก่อนใคร พร้อมของขวัญต้อนรับและสิทธิพิเศษเฉพาะสมาชิก</p>
           </div>
           <Link href="/lead" className="promo-btn">
             <i className="ti ti-crown"></i> สมัครฟรีเลย
@@ -190,30 +190,30 @@ export default function Home() {
       {/* FEATURES */}
       <section className="section" id="about" style={{ paddingTop: 0 }}>
         <div className="features">
-          <div className="feature"><i className="ti ti-truck-delivery"></i><h3>จัดส่งฟรี</h3><p>เมื่อซื้อครบ ฿1,000 ทั่วประเทศ</p></div>
-          <div className="feature"><i className="ti ti-refresh"></i><h3>คืนสินค้าได้</h3><p>ภายใน 30 วัน ไม่มีเงื่อนไข</p></div>
-          <div className="feature"><i className="ti ti-shield-check"></i><h3>ของแท้ 100%</h3><p>รับประกันคุณภาพทุกชิ้น</p></div>
-          <div className="feature"><i className="ti ti-headset"></i><h3>บริการ 24/7</h3><p>พร้อมดูแลคุณทุกเวลา</p></div>
+          <div className="feature"><i className="ti ti-truck-delivery"></i><h3>ส่งน้องถึงบ้าน</h3><p>บริการจัดส่งน้องอย่างปลอดภัย</p></div>
+          <div className="feature"><i className="ti ti-vaccine"></i><h3>วัคซีนครบ</h3><p>ตรวจสุขภาพและฉีดวัคซีนแล้ว</p></div>
+          <div className="feature"><i className="ti ti-certificate"></i><h3>สายพันธุ์แท้ 100%</h3><p>มีใบเพ็ดดีกรีรับรอง</p></div>
+          <div className="feature"><i className="ti ti-headset"></i><h3>ปรึกษาสัตวแพทย์ 24/7</h3><p>ดูแลน้องหลังรับไปแล้ว</p></div>
         </div>
       </section>
 
       {/* FOOTER */}
       <footer className="footer">
         <div className="footer-col">
-          <div className="footer-brand">✦ Lumière</div>
-          <div className="footer-desc">แฟชั่นสุดชิคที่บ่งบอก<br />ความเป็นตัวคุณในทุกวัน</div>
+          <div className="footer-brand"><i className="ti ti-paw"></i> Meow House</div>
+          <div className="footer-desc">ส่งต่อน้องแมวสุขภาพดี<br />ให้ทุกครอบครัวมีความสุข</div>
         </div>
         <div className="footer-col">
           <h3>ลิงก์</h3>
           <a href="#">เกี่ยวกับเรา</a>
           <a href="#">ติดต่อเรา</a>
-          <a href="#">บล็อกแฟชั่น</a>
+          <a href="#">บล็อกคนรักแมว</a>
           <a href="#">ร่วมงานกับเรา</a>
         </div>
         <div className="footer-col">
           <h3>บริการ</h3>
-          <a href="#">นโยบายคืนสินค้า</a>
-          <a href="#">ติดตามพัสดุ</a>
+          <a href="#">นโยบายรับประกันน้อง</a>
+          <a href="#">วิธีรับน้อง</a>
           <a href="#">คำถามที่พบบ่อย</a>
           <a href="#">ช่วยเหลือ</a>
         </div>
@@ -225,7 +225,7 @@ export default function Home() {
           <a href="#"><i className="ti ti-brand-line" style={{ marginRight: 8 }}></i>LINE</a>
         </div>
       </footer>
-      <div className="footer-bottom">© 2025 Lumière Fashion. สงวนลิขสิทธิ์ทุกประการ</div>
+      <div className="footer-bottom">© 2025 Meow House. สงวนลิขสิทธิ์ทุกประการ</div>
 
       <Toast message={toast.msg} show={toast.show} />
     </>

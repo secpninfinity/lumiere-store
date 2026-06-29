@@ -8,8 +8,8 @@ const kanit = Kanit({
 });
 
 export const metadata = {
-  title: 'Lumière — ร้านเสื้อผ้าแฟชั่น',
-  description: 'แฟชั่นสุดชิคที่บ่งบอกความเป็นตัวคุณ โทนฟ้า ม่วง ชมพู',
+  title: 'Meow House — ร้านน้องแมวสายพันธุ์แท้',
+  description: 'ร้านขายน้องแมวสายพันธุ์แท้ สุขภาพดี ฉีดวัคซีนครบ พร้อมส่งต่อความน่ารักให้ครอบครัวคุณ',
 };
 
 export default function RootLayout({ children }) {
